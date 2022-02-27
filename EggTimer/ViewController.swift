@@ -9,8 +9,9 @@
 import UIKit
 
 class ViewController: UIViewController {
+    @IBOutlet weak var titleLabel: UILabel!
     
-    let eggTimes = ["Soft": 5, "Medium": 8, "Hard": 12];
+    let eggTimes = ["Soft": 3, "Medium": 420, "Hard": 720];
     
     var counter = 0;
     
@@ -21,18 +22,19 @@ class ViewController: UIViewController {
         
         let hardness = sender.currentTitle!;
         
-        let result = eggTimes[hardness]!
-        
-        counter = result * 60;
+        counter = eggTimes[hardness]!
         
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
     }
     
     @objc func updateCounter() {
-        //example functionality
+        
         if counter > 0 {
             print("\(counter) seconds")
             counter -= 1
+        } else {
+            timer.invalidate();
+            titleLabel.text = "DONE!";
         }
     }
     
