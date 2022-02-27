@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!
+    
     
     let eggTimes = ["Soft": 3, "Medium": 500, "Hard": 7];
     
@@ -19,6 +21,15 @@ class ViewController: UIViewController {
     var secondsPassed = 0;
     
     var timer = Timer();
+    
+    var player: AVAudioPlayer!
+    
+    func playSound() {
+        let url = Bundle.main.url(forResource: "alarm_sound", withExtension: "mp3")
+        player = try! AVAudioPlayer(contentsOf: url!)
+        player.play()
+                
+    }
     
     @IBAction func hardnessSelected(_ sender: UIButton) {
         
@@ -42,6 +53,7 @@ class ViewController: UIViewController {
         } else {
             timer.invalidate();
             titleLabel.text = "DONE!";
+            playSound();
         }
     }
     
